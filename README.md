@@ -1,6 +1,6 @@
 PoliteCaptcha is a spam prevention library for use with ASP.NET MVC 3 forms. 
 
-Forcing humans to fill in forms with hard-to-read images because we can't tell them apart from maliciously-crafted computer programs is rude. PoliteCaptcha attempts to verify that the user's agent is a real web browser (via JavaScript and DOM manipulation, [using a technique adapted from Sam Saffron](view-source:http://samsaffron.com/archive/2011/10/04/Spam+bacon+sausage+and+blog+spam+a+JavaScript+approach)) before falling back to the use of a rude CAPTCHA (by default, reCAPTCHA--if you're going to be rude, at least do some good while you're at it). Very few spam programs run within a full web browser or have full support for JavaScript and the DOM, so this thwarts nearly all automated spam programs from exploiting your ASP.NET MVC app's forms.
+Forcing humans to fill in forms with hard-to-read images because we can't tell them apart from maliciously-crafted computer programs is rude. PoliteCaptcha attempts to verify that the user's agent is a real web browser (via JavaScript and DOM manipulation, [using a technique adapted from Sam Saffron](http://samsaffron.com/archive/2011/10/04/Spam+bacon+sausage+and+blog+spam+a+JavaScript+approach)) before falling back to the use of a rude CAPTCHA (by default, reCAPTCHA--if you're going to be rude, at least do some good while you're at it). Very few spam programs run within a full web browser or have full support for JavaScript and the DOM, so this thwarts nearly all automated spam programs from exploiting your ASP.NET MVC app's forms.
 
 ## Installing PoliteCaptcha	
 
@@ -50,7 +50,7 @@ public ActionResult RegisterMember(RegisterMemberRequest request)
 }
 ```
 
-### Falling Back to Captcha
+### Falling Back to CAPTCHA
 
 You don't have to add any code to trigger the fallback to a CAPTCHA when the polite spam prevention fails; it's all handled through ASP.NET MVC model state. If your controller action follows the typical patterns for using model state, the spam prevention will just work.
 
