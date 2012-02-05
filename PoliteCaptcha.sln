@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PoliteCaptcha", "PoliteCaptcha\PoliteCaptcha.csproj", "{7C663C1F-54D4-4D72-9FF2-650A542397D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Facts", "Facts\Facts.csproj", "{437F66FF-C67E-42FF-B475-277572038D49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{7C663C1F-54D4-4D72-9FF2-650A542397D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C663C1F-54D4-4D72-9FF2-650A542397D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C663C1F-54D4-4D72-9FF2-650A542397D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{437F66FF-C67E-42FF-B475-277572038D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{437F66FF-C67E-42FF-B475-277572038D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{437F66FF-C67E-42FF-B475-277572038D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{437F66FF-C67E-42FF-B475-277572038D49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
