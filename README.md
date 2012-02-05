@@ -62,7 +62,7 @@ PoliteCaptcha includes a BypassCaptchaGenerator and BypassCaptchaValidator which
 The polite spam prevention requires JavaScript; if it is disabled, spam prevention falls back to a rude CAPTCHA so that the user can still use the form.
 
 **I don't use jQuery; can I still use PoliteCaptcha?**
-We plan to remove the dependency on jQuery eventually, but for now, it is requied.
+We plan to remove the dependency on jQuery eventually, but for now, it is required.
 
 **I use a different CAPTCHA (i.e., not reCAPTCHA); can I make it more polite?**
 PoliteCaptcha uses two interfaces for CAPTCHA: one to get the CAPTCHA's form fields (and associated HTML), and one to validate the user agent's response. Concrete implementations for these interfaces are located through ASP.NET MVC's dependency resolver (and if one doesn't exist, a default reCAPTCHA implementation is used). So, if you can make your CAPTCHA work through these two interfaces, you can use it with PoliteCaptcha. (If you can't make your captcha work with these interfaces, please let us know.)
