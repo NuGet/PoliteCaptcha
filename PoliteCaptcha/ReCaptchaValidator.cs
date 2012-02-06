@@ -25,7 +25,7 @@ namespace PoliteCaptcha
             if (string.IsNullOrWhiteSpace(challenge))
                 return false;
 
-            var response = httpContext.Request.Form[Const.NoCaptchaResponseField];
+            var response = httpContext.Request.Form[Const.ReCaptchaResponseField];
             if (string.IsNullOrWhiteSpace(response))
                 return false;
 

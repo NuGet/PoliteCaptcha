@@ -1,0 +1,12 @@
+﻿@model Sample.SendFeedbackRequest
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>PoliteCaptcha Samples</h2>
+<p>Here are two samples of <a href="http://github.com/NuGet/PoliteCaptcha">PoliteCaptcha</a> in action. The first uses the polite spam prevention and won't fall back to CAPTCHA (unless, of course, you have JavaScript disabled). The second is intentionally broken so that it will always fall back to CAPTCHA.</p>
+<ul>
+    <li>@Html.ActionLink("Without CAPTCHA fallback", "WithoutFallback")</li>
+    <li>@Html.ActionLink("With CAPTCHA fallback", "WithFallback")</li>
+</ul>
