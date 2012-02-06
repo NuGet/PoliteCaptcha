@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using Recaptcha;
 
 namespace PoliteCaptcha
 {
@@ -8,7 +11,16 @@ namespace PoliteCaptcha
     {
         public IHtmlString Generate(HtmlHelper htmlHelper)
         {
-            throw new Exception();
+            var recaptchaControl = new RecaptchaControl
+            {
+                ID = Const.ReCaptchControlId,
+                PublicKey = Const.ReCaptchaLocalhostPublicKey,
+                PrivateKey = Const.ReCaptchaLocalhostPrivateKey,
+            };
+
+            var htmlWriter = new HtmlTextWriter(new StringWriter());
+            recaptchaControl.RenderControl(htmlWriter);
+            return new MvcHtmlString(htmlWriter.InnerWriter.ToString());  
         }
     }
 }
