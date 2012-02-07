@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BypassCaptchaGenerator.cs" />
+    <Compile Include="BypassCaptchaValidator.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="ErrorMessage.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -41,6 +41,21 @@ namespace Sample
             return SendFeedback(request);
         }
 
+        public ActionResult WithBypass()
+        {
+            return View();
+        }
+
+        [HttpPost, ValidateSpamPrevention]
+        public ActionResult WithBypass(SendFeedbackRequest request)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            // we ignore the actual request, because this is just a demo.
+            return SendFeedback(request);
+        }
+
         ActionResult SendFeedback(SendFeedbackRequest request)
         {
             return Content(@"Spam prevention valiation passed. If this was a real feedback form, we'd have sent your feedback. (<a href=""/"">Back to Home</a>)");

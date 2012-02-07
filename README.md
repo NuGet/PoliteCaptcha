@@ -56,7 +56,7 @@ You don't have to add any code to trigger the fallback to a CAPTCHA when the pol
 
 ## Q & A
 **How do I bypass the CAPTCHA during development or test automation?**
-PoliteCaptcha includes a BypassCaptchaGenerator and BypassCaptchaValidator which bypass all CAPTCHA generation and validation. You can selectively register these implementations of the ICaptchaGenerator and ICaptchaValidator interfaces in the current dependency resolver as needed (see the sample website for an example).
+PoliteCaptcha includes a BypassCaptchaGenerator and BypassCaptchaValidator which bypass all CAPTCHA generation and validation. You can selectively register these implementations of the [`ICaptchaGenerator`](https://github.com/NuGet/PoliteCaptcha/blob/master/PoliteCaptcha/ICaptchaGenerator.cs) and [`ICaptchaValidator`](https://github.com/NuGet/PoliteCaptcha/blob/master/PoliteCaptcha/ICaptchaValidator.cs) interfaces in the current dependency resolver as needed; see [Bypassing the Fallback CAPTCHA](https://github.com/NuGet/PoliteCaptcha/wiki/Bypassing-the-Fallback-CAPTCHA) for more information.
 
 **What happens if JavaScript is disabled?**
 The polite spam prevention requires JavaScript; if it is disabled, spam prevention falls back to a rude CAPTCHA so that the user can still use the form.
