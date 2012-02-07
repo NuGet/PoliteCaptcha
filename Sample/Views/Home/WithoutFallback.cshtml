@@ -7,11 +7,14 @@
 <p>This is a sample send feedback form that uses PoliteCaptcha spam prevention. Unless JavaScript is disabled, you should be able to submit this form and get the 'feedback sent' resonse. (Feel free to use a fake email address; no email is sent, and we aren't saving it anywhere.)</p>
 @using (Html.BeginForm())
 {
+    @Html.ValidationSummary(true)
     <fieldset>
         <legend>Send Feedback</legend>
         @Html.EditorForModel()
         @Html.SpamPreventionFields()
-        <input type="submit" value="Send" />
+        <p>
+            <input type="submit" value="Send" />
+        </p>
     </fieldset>
 }
 @section BottomScripts {

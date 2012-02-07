@@ -7,7 +7,9 @@ namespace PoliteCaptcha
 {
     public static class SpamPreventionHtmlHelpers
     {
-        public static IHtmlString SpamPreventionFields(this HtmlHelper htmlHelper)
+        public static IHtmlString SpamPreventionFields(
+            this HtmlHelper htmlHelper,
+            string fallbackMessage = null)
         {
             ICaptchaGenerator captchaGenerator = null;
             if (DependencyResolver.Current != null)
@@ -17,7 +19,7 @@ namespace PoliteCaptcha
 
             var useCaptcha = htmlHelper.ViewData.ModelState.ContainsKey(Const.ModelStateKey);
             if (useCaptcha)
-                return captchaGenerator.Generate(htmlHelper);
+                return captchaGenerator.Generate(htmlHelper, fallbackMessage);
 
             return htmlHelper.Hidden(Const.NoCaptchaChallengeField, Guid.NewGuid().ToString("N"));
         }

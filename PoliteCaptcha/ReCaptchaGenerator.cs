@@ -10,7 +10,9 @@ namespace PoliteCaptcha
 {
     public class ReCaptchaGenerator : ICaptchaGenerator
     {
-        public IHtmlString Generate(HtmlHelper htmlHelper)
+        public IHtmlString Generate(
+            HtmlHelper htmlHelper, 
+            string fallbackMessage = null)
         {
             if (htmlHelper == null)
                 throw new ArgumentNullException("htmlHelper");
@@ -42,7 +44,11 @@ namespace PoliteCaptcha
 
             var htmlWriter = new HtmlTextWriter(new StringWriter());
             recaptchaControl.RenderControl(htmlWriter);
-            return new MvcHtmlString(htmlWriter.InnerWriter.ToString());  
+
+            var captchaHtml = htmlWriter.InnerWriter.ToString();
+            var template = @"<div class=""editor-label""><span class=""field-validation-error"" data-valmsg-for=""PoliteCaptcha""><span htmlfor=""PoliteCaptcha"">{0}</span></span></div><div class=""editor-field"">{1}</div>";
+            
+            return new MvcHtmlString(string.Format(template, fallbackMessage ?? Const.DefaulFallbackMessage, captchaHtml));  
         }
     }
 }

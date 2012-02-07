@@ -6,6 +6,8 @@ namespace PoliteCaptcha
 {
     public interface ICaptchaGenerator
     {
-        IHtmlString Generate(HtmlHelper httpHelper);
+        IHtmlString Generate(
+            HtmlHelper httpHelper,
+            string fallbackMessage = null);
     }
 }
