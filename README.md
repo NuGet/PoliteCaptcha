@@ -2,6 +2,8 @@ PoliteCaptcha is a spam prevention library for use with ASP.NET MVC 3 forms.
 
 Forcing humans to fill in forms with hard-to-read images because we can't tell them apart from maliciously-crafted computer programs is rude. PoliteCaptcha attempts to verify that the user's agent is a real web browser (via JavaScript and DOM manipulation, [using a technique adapted from Sam Saffron](http://samsaffron.com/archive/2011/10/04/Spam+bacon+sausage+and+blog+spam+a+JavaScript+approach)) before falling back to the use of a rude CAPTCHA (by default, reCAPTCHA--if you're going to be rude, at least do some good while you're at it). Very few spam programs run within a full web browser or have full support for JavaScript and the DOM, so this thwarts nearly all automated spam programs from exploiting your ASP.NET MVC app's forms.
 
+_A live demo of PoliteCaptcha is available at [http://politecaptcha.apphb.com](http://politecaptcha.apphb.com)._
+
 ## Installing PoliteCaptcha	
 
 Install PoliteCaptcha via NuGet: `Install-Package PoliteCaptcha`. If you cannot use NuGet for some reason, you can build the source yourself by cloning this repository, then running the `Build-Solution.ps1` script in the repo's root, and then getting the PoliteCaptcha.dll from the _build folder.
