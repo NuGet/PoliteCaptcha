@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -11,11 +12,32 @@ namespace PoliteCaptcha
     {
         public IHtmlString Generate(HtmlHelper htmlHelper)
         {
+            if (htmlHelper == null)
+                throw new ArgumentNullException("htmlHelper");
+
+            var publicApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPublicKeyAppSettingKey];
+            if (publicApiKey == null)
+            {
+                if (!htmlHelper.ViewContext.HttpContext.Request.IsLocal)
+                    throw new InvalidOperationException(ErrorMessage.DefaultReCaptchApiKeysOnlyAllowedForLocalRequest);
+
+                publicApiKey = Const.ReCaptchaLocalhostPublicKey;
+            }
+
+            var privateApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPrivateKeyAppSettingKey];
+            if (privateApiKey == null)
+            {
+                if (!htmlHelper.ViewContext.HttpContext.Request.IsLocal)
+                    throw new InvalidOperationException(ErrorMessage.DefaultReCaptchApiKeysOnlyAllowedForLocalRequest);
+
+                privateApiKey = Const.ReCaptchaLocalhostPrivateKey;
+            }
+
             var recaptchaControl = new RecaptchaControl
             {
                 ID = Const.ReCaptchControlId,
-                PublicKey = Const.ReCaptchaLocalhostPublicKey,
-                PrivateKey = Const.ReCaptchaLocalhostPrivateKey,
+                PublicKey = publicApiKey,
+                PrivateKey = privateApiKey,
             };
 
             var htmlWriter = new HtmlTextWriter(new StringWriter());

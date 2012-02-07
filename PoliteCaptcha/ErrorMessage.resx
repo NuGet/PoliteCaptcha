@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DefaultReCaptchApiKeysOnlyAllowedForLocalRequest" xml:space="preserve">
+    <value>The default reCAPTCHA API keys may only be used for local requests. Configure your app's own API keys in app settings.</value>
+  </data>
   <data name="HttpContextMustNotBeNull" xml:space="preserve">
     <value>The HTTP context must not be null.</value>
   </data>

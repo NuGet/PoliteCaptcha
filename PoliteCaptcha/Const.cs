@@ -11,6 +11,8 @@ namespace PoliteCaptcha
         public const string ReCaptchControlId = "RudeCaptcha";
         public const string ReCaptchaLocalhostPrivateKey = "6LehOM0SAAAAAC5LsEpHoyyMqJcz7f_zEfqm66um";
         public const string ReCaptchaLocalhostPublicKey = "6LehOM0SAAAAAPgsjOy-6_grqy1JiB_W_jJa_aCw";
+        public const string ReCaptchaPrivateKeyAppSettingKey = "reCAPTCHA::PrivateKey";
+        public const string ReCaptchaPublicKeyAppSettingKey = "reCAPTCHA::PublicKey";
         public const string ReCaptchaResponseField = "recaptcha_response_field";
     }
 }

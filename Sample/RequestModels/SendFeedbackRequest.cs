@@ -8,7 +8,7 @@ namespace Sample
         [Required, DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         
-        [Required]
+        [Required, DataType(DataType.MultilineText)]
         public string Feedback { get; set; }
     }
 }

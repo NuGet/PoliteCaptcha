@@ -61,6 +61,15 @@ namespace PoliteCaptcha {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The default reCAPTCHA API keys may only be used for local requests. Configure your app&apos;s own API keys in app settings..
+        /// </summary>
+        public static string DefaultReCaptchApiKeysOnlyAllowedForLocalRequest {
+            get {
+                return ResourceManager.GetString("DefaultReCaptchApiKeysOnlyAllowedForLocalRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The HTTP context must not be null..
         /// </summary>
         public static string HttpContextMustNotBeNull {
