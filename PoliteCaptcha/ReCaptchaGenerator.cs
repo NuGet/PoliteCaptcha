@@ -55,7 +55,7 @@ namespace PoliteCaptcha
             recaptchaControl.RenderControl(htmlWriter);
 
             var captchaHtml = htmlWriter.InnerWriter.ToString();
-            var template = @"<div class=""PoliteCaptcha editor-label""><span class=""field-validation-error"" data-valmsg-for=""PoliteCaptcha""><span htmlfor=""PoliteCaptcha"">{0}</span></span></div><div class=""PoliteCaptcha editor-field"">{1}</div>";
+            var template = @"<div class=""PoliteCaptcha editor-field""><span class=""field-validation-error"" data-valmsg-for=""PoliteCaptcha""><span htmlfor=""PoliteCaptcha"">{0}</span></span>{1}</div>";
             
             return new MvcHtmlString(string.Format(template, fallbackMessage ?? Const.DefaulFallbackMessage, captchaHtml));  
         }
