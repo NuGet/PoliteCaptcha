@@ -67,5 +67,11 @@ We plan to remove the dependency on jQuery eventually, but for now, it is requir
 **I use a different CAPTCHA (i.e., not reCAPTCHA); can I make it more polite?**
 PoliteCaptcha uses two interfaces for CAPTCHA: one to get the CAPTCHA's form fields (and associated HTML), and one to validate the user agent's response. Concrete implementations for these interfaces are located through ASP.NET MVC's dependency resolver (and if one doesn't exist, a default reCAPTCHA implementation is used). So, if you can make your CAPTCHA work through these two interfaces, you can use it with PoliteCaptcha. (If you can't make your captcha work with these interfaces, please let us know.)
 
+**Can I change the error message that is displayed when PoliteCaptcha falls back to CAPTCHA?**
+Yes, the `Html.SpamPreventionFields()` HTML helper takes an optional fallback message.
+
+**Can I change the surrounding HTML (e.g., the DIV and SPAN elements) that is generated along with the reCAPTCHA?**
+Not at this time. If there is sufficient interest, we can investigate using ASP.NET MVC's editor templates, or look for other means to support templating the HTML that's generated with reCAPTCHA. In the meantime, if this is critically important to you, implement your own [`ICaptchaGenerator`](https://github.com/NuGet/PoliteCaptcha/blob/master/PoliteCaptcha/ICaptchaGenerator.cs) and use [`ReCaptchaGenerator`](https://github.com/NuGet/PoliteCaptcha/blob/master/PoliteCaptcha/ReCaptchaGenerator.cs) as a starting-point.
+
 _Ask questions not answered here by creating an issue._
 
