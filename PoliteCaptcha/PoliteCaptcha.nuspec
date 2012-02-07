@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <licenseUrl>https://github.com/NuGet/PoliteCaptcha/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/NuGet/PoliteCaptcha</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <dependencies>
+      <dependency id="jQuery" />
+      <dependency id="recaptcha" />
+    </dependencies>
+  </metadata>
+</package>

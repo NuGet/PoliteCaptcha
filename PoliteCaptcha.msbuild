@@ -1,0 +1,43 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)' == ''">
+    <Configuration>Release</Configuration>
+  </PropertyGroup>
+
+  <UsingTask AssemblyFile="3rdParty\xunit\xunit.runner.msbuild.dll" TaskName="Xunit.Runner.MSBuild.xunit" />
+
+  <Target Name="Clean">
+    <RemoveDir Directories="_build;_nupkg" />
+    <MSBuild Projects="PoliteCaptcha.sln" Targets="Clean" Properties="Configuration=$(Configuration)"/>
+  </Target>
+  
+  <Target Name="Build" DependsOnTargets="Clean">
+    <MSBuild Projects="PoliteCaptcha.sln" Targets="Build" Properties="Configuration=$(Configuration);" />
+  </Target>
+
+  <Target Name="RunFacts" DependsOnTargets="Build"> 
+    <xunit Assembly="Facts\bin\$(Configuration)\PoliteCaptcha.Facts.dll" Xml="PoliteCaptcha.Facts.results.xml" />
+  </Target>
+
+  <Target Name="PackageBuild" DependsOnTargets="RunFacts">
+    <MakeDir Directories="_build" />
+    <CreateItem Include="PoliteCaptcha\bin\$(Configuration)\*.dll">
+      <Output TaskParameter="Include" ItemName="DllFiles" />
+    </CreateItem>
+    <Copy SourceFiles="@(DllFiles)" DestinationFolder="_build\" />
+  </Target>
+
+  <Target Name="PackageNuPkg" DependsOnTargets="RunFacts">
+    <MakeDir Directories="_nupkg" />
+    <Exec Command="..\.nuget\nuget.exe pack -Prop Configuration=$(Configuration)" WorkingDirectory="PoliteCaptcha" />
+    <CreateItem Include="PoliteCaptcha\PoliteCaptcha.*.nupkg">
+      <Output TaskParameter="Include" ItemName="NuPkgFiles" />
+    </CreateItem>
+    <Copy SourceFiles="@(NuPkgFiles)" DestinationFolder="_nupkg\" />
+    <Delete Files="@(NuPkgFiles)" />
+  </Target>
+
+  <Target Name="PackageSolution" DependsOnTargets="PackageBuild;PackageNuPkg">
+    
+  </Target>
+
+</Project>

@@ -4,3 +4,6 @@ obj
 *.suo
 _ReSharper.*
 packages
+*.results.xml
+_build
+_nupkg

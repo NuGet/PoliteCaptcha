@@ -4,7 +4,7 @@ Forcing humans to fill in forms with hard-to-read images because we can't tell t
 
 ## Installing PoliteCaptcha	
 
-Install PoliteCaptcha via NuGet: `Install-Package PoliteCaptcha`. If you cannot use NuGet for some reason, you can build the source yourself by cloning this repository, then running the Build-Solution.ps1 script in the repo's root, and then getting the PoliteCaptcha.dll from the _build folder.
+Install PoliteCaptcha via NuGet: `Install-Package PoliteCaptcha`. If you cannot use NuGet for some reason, you can build the source yourself by cloning this repository, then running the `Build-Solution.ps1` script in the repo's root, and then getting the PoliteCaptcha.dll from the _build folder.
 
 ## Configuring PoliteCaptcha
 
