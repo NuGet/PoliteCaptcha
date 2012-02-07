@@ -73,5 +73,5 @@ Yes, the `Html.SpamPreventionFields()` HTML helper takes an optional fallback me
 **Can I change the surrounding HTML (e.g., the DIV and SPAN elements) that is generated along with the reCAPTCHA?**
 Not at this time. If there is sufficient interest, we can investigate using ASP.NET MVC's editor templates, or look for other means to support templating the HTML that's generated with reCAPTCHA. In the meantime, if this is critically important to you, implement your own [`ICaptchaGenerator`](https://github.com/NuGet/PoliteCaptcha/blob/master/PoliteCaptcha/ICaptchaGenerator.cs) and use [`ReCaptchaGenerator`](https://github.com/NuGet/PoliteCaptcha/blob/master/PoliteCaptcha/ReCaptchaGenerator.cs) as a starting-point.
 
-_Ask questions not answered here by creating an issue._
+_Ask questions not answered here by [creating an issue](https://github.com/NuGet/PoliteCaptcha/issues/new)._
 
