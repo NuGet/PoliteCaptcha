@@ -8,8 +8,17 @@ using Recaptcha;
 
 namespace PoliteCaptcha
 {
+    /// <summary>
+    /// A CAPTCHA generator that uses reCAPTCHA; the default CAPTCHA generator used by PoliteCaptcha.
+    /// </summary>
     public class ReCaptchaGenerator : ICaptchaGenerator
     {
+        /// <summary>
+        /// Generates CAPTCHA HTML using reCAPTCHA.
+        /// </summary>
+        /// <param name="htmlHelper">The view's HTML helper.</param>
+        /// <param name="fallbackMessage">An optional message to display above the CAPTCHA when it is displayed as a fallback.</param>
+        /// <returns>The reCAPTCHA HTML.</returns>
         public IHtmlString Generate(
             HtmlHelper htmlHelper, 
             string fallbackMessage = null)

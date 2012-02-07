@@ -5,15 +5,26 @@ using Recaptcha;
 
 namespace PoliteCaptcha
 {
+    /// <summary>
+    /// A CAPTCHA validator that uses reCAPTCHA.
+    /// </summary>
     public class ReCaptchaValidator : ICaptchaValidator
     {
         readonly RecaptchaValidator recaptchaValidator;
 
+        /// <summary>
+        /// Creates a new ReCaptchValidator object.
+        /// </summary>
         public ReCaptchaValidator()
         {
             recaptchaValidator = new RecaptchaValidator();
         }
         
+        /// <summary>
+        /// Validates a CAPTCHA response using reCAPTCHA.
+        /// </summary>
+        /// <param name="httpContext">The request's HTTP context.</param>
+        /// <returns>The result of validation; true or false.</returns>
         public bool Validate(HttpContextBase httpContext)
         {
             if (httpContext == null)

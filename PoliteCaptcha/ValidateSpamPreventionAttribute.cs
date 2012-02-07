@@ -5,9 +5,16 @@ using System.Web.Mvc;
 
 namespace PoliteCaptcha
 {
+    /// <summary>
+    /// Validates spam prevention; apply to ASP.NET MVC action methods.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class ValidateSpamPreventionAttribute : FilterAttribute, IAuthorizationFilter
     {
+        /// <summary>
+        /// Authorizes the current action by validating spam prevention responses.
+        /// </summary>
+        /// <param name="filterContext">The filter's authorization context.</param>
         public void OnAuthorization(AuthorizationContext filterContext)
         {
             if (filterContext == null)
@@ -31,6 +38,12 @@ namespace PoliteCaptcha
                 captchaValidator);
         }
 
+        /// <summary>
+        /// Authorizes spam prevention responses. If validation fails, updates model state accordingly.
+        /// </summary>
+        /// <param name="httpContext">The request's HTTP context.</param>
+        /// <param name="modelState">The request's model state.</param>
+        /// <param name="captchaValidator">The CAPTCHA validator to use to validate a CAPTCHA response, if present.</param>
         public void Authorize(
             HttpContextBase httpContext,
             ModelStateDictionary modelState,

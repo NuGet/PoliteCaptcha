@@ -2,6 +2,9 @@
 
 namespace PoliteCaptcha
 {
+    /// <summary>
+    /// The constants used by PoliteCaptcha, all in one convenience place.
+    /// </summary>
     public static class Const
     {
         public const string DefaulFallbackMessage = "Your request failed spam prevention. You must complete the CAPTCHA form below to proceed.";
