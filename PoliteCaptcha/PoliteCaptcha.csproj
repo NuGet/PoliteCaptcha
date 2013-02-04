@@ -52,6 +52,7 @@
     <Compile Include="BypassCaptchaGenerator.cs" />
     <Compile Include="BypassCaptchaValidator.cs" />
     <Compile Include="Const.cs" />
+    <Compile Include="DefaultConfigurationSource.cs" />
     <Compile Include="ErrorMessage.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

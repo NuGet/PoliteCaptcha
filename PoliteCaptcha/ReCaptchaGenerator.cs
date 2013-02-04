@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +12,18 @@ namespace PoliteCaptcha
     /// </summary>
     public class ReCaptchaGenerator : ICaptchaGenerator
     {
+        readonly IConfigurationSource configSource;
+
+        public ReCaptchaGenerator()
+            : this(new DefaultConfigurationSource())
+        {
+        }
+
+        public ReCaptchaGenerator(IConfigurationSource configSource)
+        {
+            this.configSource = configSource;
+        }
+
         /// <summary>
         /// Generates CAPTCHA HTML using reCAPTCHA.
         /// </summary>
@@ -28,19 +39,7 @@ namespace PoliteCaptcha
 
             var configurationSource = DependencyResolver.Current.GetService<IConfigurationSource>();
 
-            string publicApiKey;
-            string privateApiKey;
-            if (configurationSource != null)
-            {
-                publicApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPublicKeyAppSettingKey);
-                privateApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPrivateKeyAppSettingKey);
-            }
-            else
-            {
-                publicApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPublicKeyAppSettingKey];
-                privateApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPrivateKeyAppSettingKey];
-            }
-
+            var publicApiKey = configSource.GetConfigurationValue(Const.ReCaptchaPublicKeyAppSettingKey);
             if (publicApiKey == null)
             {
                 if (!htmlHelper.ViewContext.HttpContext.Request.IsLocal)
@@ -49,6 +48,7 @@ namespace PoliteCaptcha
                 publicApiKey = Const.ReCaptchaLocalhostPublicKey;
             }
 
+            var privateApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPrivateKeyAppSettingKey);
             if (privateApiKey == null)
             {
                 if (!htmlHelper.ViewContext.HttpContext.Request.IsLocal)

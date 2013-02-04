@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Configuration;
 using System.Web;
-using Recaptcha;
 using System.Web.Mvc;
+using Recaptcha;
 
 namespace PoliteCaptcha
 {
@@ -12,13 +11,17 @@ namespace PoliteCaptcha
     public class ReCaptchaValidator : ICaptchaValidator
     {
         readonly RecaptchaValidator recaptchaValidator;
+        readonly IConfigurationSource configSource;
 
-        /// <summary>
-        /// Creates a new ReCaptchValidator object.
-        /// </summary>
         public ReCaptchaValidator()
+            : this(new DefaultConfigurationSource())
         {
-            recaptchaValidator = new RecaptchaValidator();
+        }
+
+        public ReCaptchaValidator(IConfigurationSource configSource)
+        {
+            this.configSource = configSource;
+            this.recaptchaValidator = new RecaptchaValidator();
         }
         
         /// <summary>
@@ -32,15 +35,7 @@ namespace PoliteCaptcha
                 throw new ArgumentNullException("httpContext");
 
             var configurationSource = DependencyResolver.Current.GetService<IConfigurationSource>();
-            string privateApiKey;
-            if (configurationSource != null)
-            {
-                privateApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPrivateKeyAppSettingKey);
-            }
-            else
-            {
-                privateApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPrivateKeyAppSettingKey];
-            }
+            var privateApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPrivateKeyAppSettingKey);
             
             if (privateApiKey == null)
             {
