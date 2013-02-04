@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Web;
 using Recaptcha;
+using System.Web.Mvc;
 
 namespace PoliteCaptcha
 {
@@ -30,7 +31,17 @@ namespace PoliteCaptcha
             if (httpContext == null)
                 throw new ArgumentNullException("httpContext");
 
-            var privateApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPrivateKeyAppSettingKey];
+            var configurationSource = DependencyResolver.Current.GetService<IConfigurationSource>();
+            string privateApiKey;
+            if (configurationSource != null)
+            {
+                privateApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPrivateKeyAppSettingKey);
+            }
+            else
+            {
+                privateApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPrivateKeyAppSettingKey];
+            }
+            
             if (privateApiKey == null)
             {
                 if (!httpContext.Request.IsLocal)

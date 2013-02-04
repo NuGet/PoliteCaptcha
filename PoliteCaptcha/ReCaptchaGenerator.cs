@@ -26,7 +26,21 @@ namespace PoliteCaptcha
             if (htmlHelper == null)
                 throw new ArgumentNullException("htmlHelper");
 
-            var publicApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPublicKeyAppSettingKey];
+            var configurationSource = DependencyResolver.Current.GetService<IConfigurationSource>();
+
+            string publicApiKey;
+            string privateApiKey;
+            if (configurationSource != null)
+            {
+                publicApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPublicKeyAppSettingKey);
+                privateApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPrivateKeyAppSettingKey);
+            }
+            else
+            {
+                publicApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPublicKeyAppSettingKey];
+                privateApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPrivateKeyAppSettingKey];
+            }
+
             if (publicApiKey == null)
             {
                 if (!htmlHelper.ViewContext.HttpContext.Request.IsLocal)
@@ -35,7 +49,6 @@ namespace PoliteCaptcha
                 publicApiKey = Const.ReCaptchaLocalhostPublicKey;
             }
 
-            var privateApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPrivateKeyAppSettingKey];
             if (privateApiKey == null)
             {
                 if (!htmlHelper.ViewContext.HttpContext.Request.IsLocal)
