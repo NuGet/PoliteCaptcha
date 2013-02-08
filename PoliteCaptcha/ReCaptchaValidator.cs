@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Configuration;
 using System.Web;
+using System.Web.Mvc;
 using Recaptcha;
 
 namespace PoliteCaptcha
@@ -11,13 +11,17 @@ namespace PoliteCaptcha
     public class ReCaptchaValidator : ICaptchaValidator
     {
         readonly RecaptchaValidator recaptchaValidator;
+        readonly IConfigurationSource configSource;
 
-        /// <summary>
-        /// Creates a new ReCaptchValidator object.
-        /// </summary>
         public ReCaptchaValidator()
+            : this(new DefaultConfigurationSource())
         {
-            recaptchaValidator = new RecaptchaValidator();
+        }
+
+        public ReCaptchaValidator(IConfigurationSource configSource)
+        {
+            this.configSource = configSource;
+            this.recaptchaValidator = new RecaptchaValidator();
         }
         
         /// <summary>
@@ -30,7 +34,9 @@ namespace PoliteCaptcha
             if (httpContext == null)
                 throw new ArgumentNullException("httpContext");
 
-            var privateApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPrivateKeyAppSettingKey];
+            var configurationSource = DependencyResolver.Current.GetService<IConfigurationSource>();
+            var privateApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPrivateKeyAppSettingKey);
+            
             if (privateApiKey == null)
             {
                 if (!httpContext.Request.IsLocal)

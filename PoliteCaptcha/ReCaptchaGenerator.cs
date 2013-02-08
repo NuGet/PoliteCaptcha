@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +12,18 @@ namespace PoliteCaptcha
     /// </summary>
     public class ReCaptchaGenerator : ICaptchaGenerator
     {
+        readonly IConfigurationSource configSource;
+
+        public ReCaptchaGenerator()
+            : this(new DefaultConfigurationSource())
+        {
+        }
+
+        public ReCaptchaGenerator(IConfigurationSource configSource)
+        {
+            this.configSource = configSource;
+        }
+
         /// <summary>
         /// Generates CAPTCHA HTML using reCAPTCHA.
         /// </summary>
@@ -26,7 +37,9 @@ namespace PoliteCaptcha
             if (htmlHelper == null)
                 throw new ArgumentNullException("htmlHelper");
 
-            var publicApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPublicKeyAppSettingKey];
+            var configurationSource = DependencyResolver.Current.GetService<IConfigurationSource>();
+
+            var publicApiKey = configSource.GetConfigurationValue(Const.ReCaptchaPublicKeyAppSettingKey);
             if (publicApiKey == null)
             {
                 if (!htmlHelper.ViewContext.HttpContext.Request.IsLocal)
@@ -35,7 +48,7 @@ namespace PoliteCaptcha
                 publicApiKey = Const.ReCaptchaLocalhostPublicKey;
             }
 
-            var privateApiKey = ConfigurationManager.AppSettings[Const.ReCaptchaPrivateKeyAppSettingKey];
+            var privateApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPrivateKeyAppSettingKey);
             if (privateApiKey == null)
             {
                 if (!htmlHelper.ViewContext.HttpContext.Request.IsLocal)
