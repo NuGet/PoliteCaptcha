@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Recaptcha;
+using System;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
-using Recaptcha;
 
 namespace PoliteCaptcha
 {
@@ -64,6 +64,10 @@ namespace PoliteCaptcha
                 PublicKey = publicApiKey,
                 PrivateKey = privateApiKey,
             };
+            if (htmlHelper.ViewContext.HttpContext.Request.IsSecureConnection)
+            {
+                recaptchaControl.OverrideSecureMode = true;
+            }
 
             var htmlWriter = new HtmlTextWriter(new StringWriter());
             recaptchaControl.RenderControl(htmlWriter);
