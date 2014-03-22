@@ -120,10 +120,33 @@ namespace PoliteCaptcha
 </noscript></div>",
             html.ToHtmlString());
             }
+
+            [Fact]
+            public void will_generate_expected_html_with_fallback_message()
+            {
+                SetHttpContextCurrent();
+                var stubHtmlHelper = CreateHtmlHelper();
+                var generator = new ReCaptchaGenerator();
+
+                var html = generator.Generate(stubHtmlHelper, "My fallback message");
+                Assert.Equal(@"<div class=""PoliteCaptcha editor-field""><span class=""field-validation-error"" data-valmsg-for=""PoliteCaptcha""><span htmlfor=""PoliteCaptcha"">My fallback message</span></span><script type=""text/javascript"">
+		var RecaptchaOptions = {
+			theme : '',
+			tabindex : 0
+		};
+
+</script><script type=""text/javascript"" src=""http://www.google.com/recaptcha/api/challenge?k=6LehOM0SAAAAAPgsjOy-6_grqy1JiB_W_jJa_aCw"">
+
+</script><noscript>
+		<iframe src=""http://www.google.com/recaptcha/api/noscript?k=6LehOM0SAAAAAPgsjOy-6_grqy1JiB_W_jJa_aCw"" width=""500"" height=""300"" frameborder=""0"">
+
+		</iframe><br /><textarea name=""recaptcha_challenge_field"" rows=""3"" cols=""40""></textarea><input name=""recaptcha_response_field"" value=""manual_challenge"" type=""hidden"" />
+</noscript></div>",
+            html.ToHtmlString());
+            }
+
         }
 
-        // SEcureConnection
-        // fallback message
 
         static HtmlHelper CreateHtmlHelper(
             bool isRequestLocal = true,
