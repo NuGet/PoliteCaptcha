@@ -58,6 +58,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorMessage.resx</DependentUpon>
     </Compile>
+    <Compile Include="IAjaxCaptchaGenerator.cs" />
     <Compile Include="ICaptchaGenerator.cs" />
     <Compile Include="ICaptchaValidator.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs">

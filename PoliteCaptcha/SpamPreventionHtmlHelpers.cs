@@ -56,5 +56,40 @@ namespace PoliteCaptcha
     }});
 </script>", Const.NoCaptchaChallengeField, Const.NoCaptchaResponseField));
         }
+
+        /// <summary>
+        /// Generates the JavaScript required to show the captcha. Requires jQuery.
+        /// </summary>
+        /// <param name="htmlHelper">The view's HTML helper.</param>
+        /// <param name="fallbackMessage">An optional message to display above the CAPTCHA when it is displayed as a fallback.</param>
+        /// <returns>The spam prevention JavaScript.</returns>
+        public static IHtmlString SpamPreventionAjaxCreationScript(
+            this HtmlHelper htmlHelper,
+            string fallbackMessage = null)
+        {
+            IAjaxCaptchaGenerator captchaGenerator = null;
+            if (DependencyResolver.Current != null)
+                captchaGenerator = DependencyResolver.Current.GetService<IAjaxCaptchaGenerator>();
+            if (captchaGenerator == null)
+                captchaGenerator = new ReCaptchaGenerator();
+
+            return captchaGenerator.GenerateCaptchaCreationScript(htmlHelper, fallbackMessage);
+        }
+
+        /// <summary>
+        /// Generates the Html placeholder required to show the captcha.
+        /// </summary>
+        /// <param name="htmlHelper">The view's HTML helper.</param>
+        /// <returns>The spam prevention JavaScript.</returns>
+        public static IHtmlString SpamPreventionAjaxPlaceHolder(this HtmlHelper htmlHelper)
+        {
+            IAjaxCaptchaGenerator captchaGenerator = null;
+            if (DependencyResolver.Current != null)
+                captchaGenerator = DependencyResolver.Current.GetService<IAjaxCaptchaGenerator>();
+            if (captchaGenerator == null)
+                captchaGenerator = new ReCaptchaGenerator();
+
+            return new MvcHtmlString(htmlHelper.Hidden(Const.NoCaptchaChallengeField, Guid.NewGuid().ToString("N")) + captchaGenerator.GenerateHtmlPlaceHolder().ToHtmlString());
+        }
     }
 }

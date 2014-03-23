@@ -10,7 +10,7 @@ namespace PoliteCaptcha
     /// <summary>
     /// A CAPTCHA generator that uses reCAPTCHA; the default CAPTCHA generator used by PoliteCaptcha.
     /// </summary>
-    public class ReCaptchaGenerator : ICaptchaGenerator
+    public class ReCaptchaGenerator : ICaptchaGenerator, IAjaxCaptchaGenerator
     {
         readonly IConfigurationSource _configSource;
 
@@ -71,7 +71,7 @@ namespace PoliteCaptcha
             var captchaHtml = htmlWriter.InnerWriter.ToString();
 
             const string template = @"<div class=""PoliteCaptcha editor-field""><span class=""field-validation-error"" data-valmsg-for=""PoliteCaptcha""><span htmlfor=""PoliteCaptcha"">{0}</span></span>{1}</div>";
-            return new MvcHtmlString(string.Format(template, fallbackMessage ?? Const.DefaulFallbackMessage, captchaHtml));  
+            return new MvcHtmlString(string.Format(template, fallbackMessage ?? Const.DefaulFallbackMessage, captchaHtml));
         }
 
         private IConfigurationSource GetConfigurationSource()
@@ -91,6 +91,63 @@ namespace PoliteCaptcha
             }
 
             return new DefaultConfigurationSource();
+        }
+
+        /// <summary>
+        /// Generates the script (PoliteCaptchaCreate) allowing the creation of the captcha in javascript using ReCaptcha
+        /// </summary>
+        /// <param name="htmlHelper">The view's HTML helper.</param>
+        /// <param name="fallbackMessage">An optional message to display above the CAPTCHA when it is displayed as a fallback.</param>
+        /// <returns>The script of the creation of the capctha</returns>
+        public IHtmlString GenerateCaptchaCreationScript(
+            HtmlHelper htmlHelper,
+            string fallbackMessage = null)
+        {
+            if (htmlHelper == null)
+            {
+                throw new ArgumentNullException("htmlHelper");
+            }
+
+            IConfigurationSource configurationSource = GetConfigurationSource();
+            var publicApiKey = configurationSource.GetConfigurationValue(Const.ReCaptchaPublicKeyAppSettingKey);
+            if (publicApiKey == null)
+            {
+                if (!htmlHelper.ViewContext.HttpContext.Request.IsLocal)
+                    throw new InvalidOperationException(ErrorMessage.DefaultReCaptchApiKeysOnlyAllowedForLocalRequest);
+
+                publicApiKey = Const.ReCaptchaLocalhostPublicKey;
+            }
+
+            string scheme = "http";
+            if (htmlHelper.ViewContext.HttpContext.Request.IsSecureConnection)
+            {
+                scheme += "s";
+            }
+
+            return new MvcHtmlString(
+                string.Format(
+@"<script type=""text/javascript"" src=""{0}://www.google.com/recaptcha/api/js/recaptcha_ajax.js""></script>
+<script>
+    function PoliteCaptchaCreate() {{
+        $('#PoliteCaptchaMessage').html(""{1}"");
+                Recaptcha.create(""{2}"",
+                                    ""ReCaptchaPlaceHolder"",
+                                    {{
+                                        theme: ""red"",
+                                        callback: Recaptcha.focus_response_field
+                                    }}
+                                  );
+    }}
+</script>", scheme, fallbackMessage ?? Const.DefaulFallbackMessage, publicApiKey));
+        }
+
+        /// <summary>
+        /// Generates the Html placeholder which be filled by the PoliteCaptcha.Create method using ReCaptcha
+        /// </summary>
+        /// <returns>The Hml placeholder</returns>
+        public IHtmlString GenerateHtmlPlaceHolder()
+        {
+            return new MvcHtmlString(@"<div class=""PoliteCaptcha editor-field""><span class=""field-validation-error"" data-valmsg-for=""PoliteCaptcha""><span htmlfor=""PoliteCaptcha"" id=""PoliteCaptchaMessage""></span></span><div id=""ReCaptchaPlaceHolder""></div></div>");
         }
     }
 }

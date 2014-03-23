@@ -1,4 +1,4 @@
-PoliteCaptcha is a spam prevention library for use with ASP.NET MVC 3 forms. 
+PoliteCaptcha is a spam prevention library for use with ASP.NET MVC 3+ forms. 
 
 Forcing humans to fill in forms with hard-to-read images because we can't tell them apart from maliciously-crafted computer programs is rude. PoliteCaptcha attempts to verify that the user's agent is a real web browser (via JavaScript and DOM manipulation, [using a technique adapted from Sam Saffron](http://samsaffron.com/archive/2011/10/04/Spam+bacon+sausage+and+blog+spam+a+JavaScript+approach)) before falling back to the use of a rude CAPTCHA (by default, reCAPTCHA--if you're going to be rude, at least do some good while you're at it). Very few spam programs run within a full web browser or have full support for JavaScript and the DOM, so this thwarts nearly all automated spam programs from exploiting your ASP.NET MVC app's forms.
 
@@ -76,4 +76,4 @@ Yes, the `Html.SpamPreventionFields()` HTML helper takes an optional fallback me
 Not at this time. If there is sufficient interest, we can investigate using ASP.NET MVC's editor templates, or look for other means to support templating the HTML that's generated with reCAPTCHA. In the meantime, if this is critically important to you, implement your own [`ICaptchaGenerator`](https://github.com/NuGet/PoliteCaptcha/blob/master/PoliteCaptcha/ICaptchaGenerator.cs) and use [`ReCaptchaGenerator`](https://github.com/NuGet/PoliteCaptcha/blob/master/PoliteCaptcha/ReCaptchaGenerator.cs) as a starting-point.
 
 _Ask questions not answered here by [creating an issue](https://github.com/NuGet/PoliteCaptcha/issues/new)._
-
+_More info and tutorials in the [wiki](https://github.com/NuGet/PoliteCaptcha/wiki/)._
