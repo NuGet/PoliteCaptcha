@@ -4,6 +4,9 @@ Forcing humans to fill in forms with hard-to-read images because we can't tell t
 
 _A live demo of PoliteCaptcha is available at [http://politecaptcha.apphb.com](http://politecaptcha.apphb.com)._
 
+# Open Source Code of Conduct
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+
 ## Installing PoliteCaptcha	
 
 Install PoliteCaptcha via NuGet: `Install-Package PoliteCaptcha`. If you cannot use NuGet for some reason, you can build the source yourself by cloning this repository, then running the `Build-Solution.ps1` script in the repo's root, and then getting the PoliteCaptcha.dll from the _build folder.
